@@ -5,12 +5,10 @@ const oImage = "images/png-transparent-white-neon-circle-thumbnail.png";
 let xTurn = true;
 let enableGameplay = false;
 
-
 function toggleGameplay() {
   enableGameplay = !enableGameplay;
   startButton.innerHTML = enableGameplay ? "click to pause" : "click to start";
 }
-
 
 function handleClick(event) {
   if (!enableGameplay) return;
@@ -67,7 +65,9 @@ function isWinningMove(move) {
       slot1.dataset.shape === slot2.dataset.shape &&
       slot2.dataset.shape === slot3.dataset.shape
     ) {
-      document.querySelector('.result').innerHTML = `winner is: ${slot1.dataset.shape}`;
+      document.querySelector(
+        ".result"
+      ).innerHTML = `winner is: ${slot1.dataset.shape}`;
       enableGameplay = false;
       return true;
     }
