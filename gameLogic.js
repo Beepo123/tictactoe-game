@@ -6,8 +6,10 @@ let xTurn = true;
 let enableGameplay = false;
 
 function toggleGameplay() {
-  enableGameplay = !enableGameplay;
-  startButton.innerHTML = enableGameplay ? "click to pause" : "click to start";
+  if (startButton.innerHTML !== "Play again?") {
+    enableGameplay = !enableGameplay;
+    startButton.innerHTML = enableGameplay ? "click to pause" : "click to start";
+  }
 }
 
 function handleClick(event) {
@@ -38,15 +40,14 @@ const winningMoves = [
   [3, 5, 7],
 ];
 
-const slots = document.querySelectorAll(".slot");
+let slots = document.querySelectorAll(".slot");
 
 function checkWinner() {
   for (const move of winningMoves) {
     if (isWinningMove(move)) {
-      return;
+      startButton.innerHTML = "Play again?";
     }
   }
-  console.log("No winner yet");
 }
 
 function isWinningMove(move) {
@@ -60,14 +61,13 @@ function isWinningMove(move) {
     slot2.hasAttribute("data-shape") &&
     slot3.hasAttribute("data-shape")
   ) {
-    console.log("has attribute");
+
     if (
       slot1.dataset.shape === slot2.dataset.shape &&
       slot2.dataset.shape === slot3.dataset.shape
     ) {
-      document.querySelector(
-        ".result"
-      ).innerHTML = `winner is: ${slot1.dataset.shape}`;
+      document.querySelector(".result").
+        innerHTML = `winner is: ${slot1.dataset.shape}`;
       enableGameplay = false;
       return true;
     }
@@ -75,4 +75,24 @@ function isWinningMove(move) {
   return false;
 }
 
-// test comment
+function playAgain() {
+  if (startButton.innerHTML === "Play again?") {
+    startButton.innerHTML = "click to pause"
+    enableGameplay = true;
+
+    document.querySelector(".main").innerHTML = `
+      <div class="slot">1</div>
+      <div class="slot">2</div>
+      <div class="slot">3</div>
+      <div class="slot">4</div>
+      <div class="slot">5</div>
+      <div class="slot">6</div>
+      <div class="slot">7</div>
+      <div class="slot">8</div>
+      <div class="slot">9</div>
+    `;
+    document.querySelector(".result").innerHTML = ``;
+    slots = document.querySelectorAll(".slot");
+    runEventListeners();
+  }
+}

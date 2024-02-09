@@ -1,5 +1,11 @@
 const startButton = document.querySelector(".start-button");
-startButton.addEventListener("click", toggleGameplay);
 
-const main = document.querySelector(".main");
-main.addEventListener("click", handleClick);
+runEventListeners();
+
+function runEventListeners() {
+  startButton.addEventListener("click", toggleGameplay);
+  startButton.addEventListener("click", playAgain);
+
+  const main = document.querySelector(".main");
+  main.addEventListener("click", handleClick);
+}
